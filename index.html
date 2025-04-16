@@ -1,0 +1,290 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Эпичные Машины</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #000, #111);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      perspective: 1000px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4rem;
+      margin: 50px 0;
+      background: linear-gradient(90deg, #ff004f, #00f7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseText 3s infinite ease-in-out;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 50px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+      transform: rotateY(0);
+    }
+
+    .card:hover {
+      transform: rotateY(10deg) scale(1.05);
+      z-index: 10;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+      animation: neonBorder 1.5s infinite alternate;
+    }
+
+    @keyframes neonBorder {
+      0%, 100% {
+        box-shadow: 0 0 20px #00f7ff, 0 0 40px #00f7ff, 0 0 60px #00f7ff;
+      }
+      50% {
+        box-shadow: 0 0 30px #ff004f, 0 0 50px #ff004f, 0 0 80px #ff004f;
+      }
+    }
+
+    @keyframes flash {
+      0% { background-color: rgba(255, 255, 255, 0.6); }
+      100% { background-color: transparent; }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      50% { transform: translateX(3px); }
+      75% { transform: translateX(-3px); }
+      100% { transform: translateX(0); }
+    }
+
+    .card.clicked::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      animation: flash 0.2s ease-out;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .card.clicked {
+      animation: shake 0.2s ease;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      backface-visibility: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      font-size: 1.5rem;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(20px);
+      color: #fff;
+      text-shadow: 0 0 10px #000;
+    }
+
+    .card:hover .caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .button {
+      position: absolute;
+      bottom: 15px;
+      left: 20px;
+      z-index: 2;
+      background: #ff004f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #00f7ff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #fff;
+    }
+
+    .popup-close {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.ibb.co/yY0n2sZ/star-bg.png') repeat;
+      z-index: -1;
+      animation: moveStars 100s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from {background-position: 0 0;}
+      to {background-position: 10000px 10000px;}
+    }
+  </style>
+</head>
+<body>
+
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>ЭПИЧНЫЕ МАШИНЫ</h1>
+
+  <div class="gallery">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1571607387223-7b1bbf1ac7b3" alt="BMW M4">
+      <div class="caption">BMW M4 — агрессия и стиль</div>
+      <button class="button" onclick="showPopup('https://images.unsplash.com/photo-1571607387223-7b1bbf1ac7b3')">Узнать больше</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1549924231-f129b911e442" alt="Audi R8">
+      <div class="caption">Audi R8 — ревущий V10</div>
+      <button class="button" onclick="showPopup('https://images.unsplash.com/photo-1549924231-f129b911e442')">Узнать больше</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1597004064584-971cd5d1703c" alt="Tesla Model S">
+      <div class="caption">Tesla S — током по сердцу</div>
+      <button class="button" onclick="showPopup('https://images.unsplash.com/photo-1597004064584-971cd5d1703c')">Узнать больше</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="Lamborghini">
+      <div class="caption">Lamborghini — ярость на колёсах</div>
+      <button class="button" onclick="showPopup('https://images.unsplash.com/photo-1503376780353-7e6692767b70')">Узнать больше</button>
+    </div>
+    <div class="card">
+      <img src="https://images.wallpaperscraft.ru/image/single/bmw_fary_avtomobil_124112_3840x2160.jpg" alt="BMW F80 Night">
+      <div class="caption">BMW F80 — ночной зверь</div>
+      <button class="button" onclick="showPopup('https://images.wallpaperscraft.ru/image/single/bmw_fary_avtomobil_124112_3840x2160.jpg')">Узнать больше</button>
+    </div>
+    <div class="card">
+      <img src="https://images.wallpaperscraft.ru/image/single/lamborghini_mashina_sportkar_146392_3840x2160.jpg" alt="Lamborghini Sport">
+      <div class="caption">Lamborghini — спорт и элегантность</div>
+      <button class="button" onclick="showPopup('https://images.wallpaperscraft.ru/image/single/lamborghini_mashina_sportkar_146392_3840x2160.jpg')">Узнать больше</button>
+    </div>
+    <div class="card">
+      <img src="https://images.wallpaperscraft.ru/image/single/mclaren_p1_mclaren_avtomobil_216577_5184x3456.jpg" alt="McLaren P1">
+      <div class="caption">McLaren P1 — будущее на колёсах</div>
+      <button class="button" onclick="showPopup('https://images.wallpaperscraft.ru/image/single/mclaren_p1_mclaren_avtomobil_216577_5184x3456.jpg')">Узнать больше</button>
+    </div>
+  </div>
+
+  <div id="popup" class="popup hidden">
+    <span class="popup-close" onclick="hidePopup()">&times;</span>
+    <img id="popup-img" src="" alt="Большая машина">
+  </div>
+
+  <footer>© 2025 Эпичные Машины. Впечатляйся громко.</footer>
+
+  <script>
+    function showPopup(src) {
+      document.getElementById('popup-img').src = src;
+      document.getElementById('popup').classList.remove('hidden');
+    }
+
+    function hidePopup() {
+      document.getElementById('popup').classList.add('hidden');
+    }
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.add('clicked');
+        setTimeout(() => {
+          card.classList.remove('clicked');
+        }, 300);
+      });
+    });
+  </script>
+
+</body>
